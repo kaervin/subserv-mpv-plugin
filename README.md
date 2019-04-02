@@ -22,4 +22,6 @@ mpvs 'client.h' needs to be included.
 You can get it from https://raw.githubusercontent.com/mpv-player/mpv/master/libmpv/client.h
 Just save it in the directory you are compiling it from.
 
+To access the site, just go to 127.0.0.1:8080 (if you want to change the port, edit the port definition in the source).
+
 If you have any questions, feel free to send them to kyouko@channel.moe
