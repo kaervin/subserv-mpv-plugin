@@ -1,0 +1,95 @@
+STRINGIFY(
+<div id='old-subs' class='old-subs'></div>
+<div id='new-subs' class='new-subs'></div>
+
+<style type="text/css" media="screen">
+
+body {
+    margin: 0px;
+}
+
+div.old-subs {
+    overflow: auto;
+    height: 80%;
+    border: darkgray;
+}
+
+div.new-subs {
+    position: absolute;
+    text-align: center;
+    width: 99%;
+    top: 90%;
+    font-size: x-large; 
+}
+
+div.old-sub-el {
+    min-height: 5px;
+    padding: 5px;
+}
+
+div.old-sub-el-even {
+    background-color: aliceblue;
+}
+
+div.old-sub-el-odd {
+}
+</style>
+<script>
+
+lastsub = 0;
+even = 0;
+
+function updateText() {
+    console.log(this.responseText);
+    resp = JSON.parse(this.responseText);
+    lastsub = resp.lines_next;
+
+    new_subs_elem = document.getElementById('new-subs');
+    old_subs_elem = document.getElementById('old-subs');
+
+    if (resp.subs.length == 0) {
+        return;
+    }
+    
+    if (new_subs_elem.innerHTML != "") {
+        old_subs_new_node = document.createElement("div");
+        old_subs_new_node.classList.add("old-sub-el");
+        if (even) {
+            old_subs_new_node.classList.add("old-sub-el-even");
+        } else {
+            old_subs_new_node.classList.add("old-sub-el-odd");
+        }
+        even = (even+1)%2;
+        old_subs_new_node.innerHTML = new_subs_elem.innerHTML; 
+        old_subs_elem.appendChild(old_subs_new_node);
+        old_subs_new_node.scrollIntoView();
+    }
+    new_subs_elem.innerHTML = resp.subs[resp.subs.length-1];
+
+    for (i = 0; i < resp.subs.length-1; i++) {
+        if (resp.subs[i] != "") {
+            old_subs_new_node = document.createElement("div");
+            old_subs_new_node.classList.add("old-sub-el");
+            if (even) {
+                old_subs_new_node.classList.add("old-sub-el-even");
+            } else {
+                old_subs_new_node.classList.add("old-sub-el-odd");
+            }
+            even = (even+1)%2;
+            old_subs_new_node.innerHTML = resp.subs[i]; 
+            old_subs_elem.appendChild(old_subs_new_node);
+        }
+    }
+    
+}
+var subs_req = new XMLHttpRequest();
+subs_req.addEventListener("load", updateText);
+
+function subs_request() {
+    subs_req.open("GET", "subs/"+lastsub);
+    subs_req.send();
+}
+
+window.setInterval(subs_request, 100);
+</script>
+)
