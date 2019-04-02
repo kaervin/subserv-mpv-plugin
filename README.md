@@ -20,4 +20,4 @@ gcc -o ~/.config/mpv/scripts/subserv.so subserv.c -I . -shared -fPIC
 ```
 mpvs 'client.h' needs to be included.
 
-If you have any questions, feel free to send it to kyouko@channel.moe
+If you have any questions, feel free to send them to kyouko@channel.moe
