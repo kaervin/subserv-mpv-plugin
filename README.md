@@ -19,5 +19,7 @@ to compile and install it basically run:
 gcc -o ~/.config/mpv/scripts/subserv.so subserv.c -I . -shared -fPIC
 ```
 mpvs 'client.h' needs to be included.
+You can get it from https://raw.githubusercontent.com/mpv-player/mpv/master/libmpv/client.h
+Just save it in the directory you are compiling it from.
 
 If you have any questions, feel free to send them to kyouko@channel.moe
